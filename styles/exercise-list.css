@@ -1,0 +1,336 @@
+/* --------------- MAIN CONTENT --------------- */
+.main-exercicios {
+      flex:1;
+  box-sizing: border-box;
+  font-family: var(--content-font);
+  width: 100%;
+  min-width: 0;
+  background: var(--background);
+  padding: 24px;
+  display:flex;
+  flex-direction: column;
+  gap:15px;
+}
+
+/* Search Bar */
+.exercise-search-bar {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  background: var(--light-grey);
+  display: flex;
+  align-items: center;
+  border-radius: 50vw;
+  padding: 10px 10px;
+  font-family: var(--content-font);
+}
+
+.exercise-search-bar input {
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 24px 20px;
+  font-size: 12px;
+  color: var(--text-dark);
+  font-family: var(--content-font);
+}
+
+.exercise-search-bar button {
+  background-color: var(--text-muted); /* assumed to be black */
+  color: var(--color-primary);              /* assumed to be white */
+  border: none;
+  border-radius: 50vh;
+  height: 30px;
+  width: 30px;
+  padding: 3px 3px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.exercise-search-bar button:hover {
+  background-color: #1a1a1a; /* slightly lighter black for hover */
+  transform: scale(1.02);
+}
+
+
+.save-workout{
+  bottom: 20px; 
+  right: 20px;   
+  z-index: 1000; 
+  display: flex;
+  width: 100%;
+}
+
+.save-workout button {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  width: 100%;
+  max-width: 100px;
+  align-self: center;
+}
+
+.save-workout button:hover {
+  background-color: #1a1a1a;
+  transform: scale(1.02);
+}
+
+.save-workout button:active {
+  transform: scale(0.98);
+}
+
+.exercise-card {
+  box-sizing: border-box;
+  width: 100%;
+  height: 110px;
+  padding: 16px;
+  margin: 0 0 20px 0;
+  background: var(--light-grey);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s ease;
+}
+
+.exercise-card-full {
+width:95%;
+}
+
+.exercise-card:active {
+  transform: scale(1.01);
+}
+
+/* Imagem do exercício */
+.exercise-card > img {
+  width: 90px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* Descrição */
+.exercise-card-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.exercise-card-description h1 {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  margin: 0;
+  color: var(--text-dark, #282828);
+}
+
+.exercise-card-description p {
+  font-family: var(--content-font, sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0;
+  color: var(--text-muted, #666);
+}
+
+.hidden {
+  display: none;
+}
+
+/* Right Nav Button */
+.exercisebar-button {
+  position: relative;
+  font-size: 14px;
+  margin-right: 16px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  color: var(--text-dark);
+  cursor: pointer;
+  z-index: 1;
+  transition: color 0.2s;
+  justify-content: flex-end;
+}
+
+.add-workout button {
+  background-color: var(--color-secondary); /* assumed to be black */
+  color: var(--color-primary);              /* assumed to be white */
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.add-workout button:hover {
+  background-color: #1a1a1a; /* slightly lighter black for hover */
+  transform: scale(1.02);
+}
+
+.add-workout button:active {
+  transform: scale(0.98);
+}
+
+.card-edit{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--text-muted);
+    border-left: 1px solid var(--text-muted);
+    padding-left:20px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.card-edit-edit{
+  padding:8px;
+}
+.card-edit-edit:hover{
+    color: #8db166;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.card-edit-delete{
+      padding:8px;
+}
+.card-edit-delete:hover{
+    color: #994848;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.exercise-card.exercise-card-full:hover {
+  transform: scale(1.001);
+  box-shadow: none;
+  cursor: default;
+}
+
+ /* Popup */
+.popup {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 300px;
+  height: 100vh;
+  background-color: var(--background);
+  box-shadow: -4px 0 10px rgba(0,0,0,0.1);
+  padding: 24px;
+  box-sizing: border-box;
+  transition: right 0.3s ease;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--content-font);
+}
+
+.popup.open {
+  right: 0;
+}
+
+/* Cabeçalho do popup */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-header h2 {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+/* Botão de fechar */
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+/* Inputs e Textareas */
+#upload-form input[type="text"],
+#upload-form textarea {
+  background-color: var(--light-grey);
+  color: var(--text-dark);
+  border: none;
+  border-radius: 50vw;
+  padding: 12px 20px;
+  font-size: 12px;
+  font-family: var(--content-font);
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+#upload-form textarea {
+  border-radius: 20px;
+  resize: vertical;
+  height: 80px;
+}
+
+/* Input de imagem */
+#image-input {
+  font-size: 12px;
+  font-family: var(--content-font);
+  margin-bottom: 8px;
+}
+
+/* Thumbnail */
+#thumbnail {
+  max-width: 100%;
+  max-height: 150px;
+  display: none;
+  border-radius: 12px;
+  margin: 12px 0;
+  object-fit: cover;
+}
+
+/* Botão de Enviar */
+.send-btn {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  width: 100%;
+  align-self: center;
+}
+
+.send-btn:hover {
+  background-color: #1a1a1a;
+  transform: scale(1.02);
+}
+
+.send-btn:active {
+  transform: scale(0.98);
+}

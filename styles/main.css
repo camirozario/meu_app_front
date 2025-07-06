@@ -1,0 +1,423 @@
+/* --------------- MAIN CONTENT --------------- */
+#main {
+  
+  min-height: 100vh;
+  height: auto;
+  flex: 1;
+  font-family: var(--content-font);
+  min-width: 0;
+  background: #fff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: var(--background);
+}
+
+#main-container {
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 20px;
+  border: var(--light-grey) 1px solid;
+  padding: 30px;
+}
+
+#add-text {
+  display: flex;
+  font-size: 14px;
+  font-family: var(--content-font);
+  color: var(--light-grey);
+  transition: opacity 0.3s ease;
+}
+
+.save-workout {
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  width: 100%;
+}
+
+.save-workout button {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  width: 100%;
+  max-width: 100px;
+  align-self: center;
+}
+
+.save-workout button:hover {
+  background-color: #1a1a1a;
+  transform: scale(1.02);
+}
+
+.save-workout button:active {
+  transform: scale(0.98);
+}
+
+.card-erase {
+  height: 100%;
+  color: var(--text-muted);
+  border-left: 1px solid var(--text-muted);
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+.card-erase:hover {
+  color: #994848;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.exercise-card.exercise-card-full:hover {
+  transform: scale(1.001);
+  box-shadow: none;
+  cursor: default;
+}
+
+/* ---------------  RIGHT BAR WITH WORKOUTS --------------- */
+.exercisebar {
+    overflow-y: auto;
+  min-height: 100vh;
+  height: auto;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  top: 0;
+  right: 0;
+  width: var(--exercisebar-width);
+  height: 100vh;
+  background: var(--color-secondary);
+  z-index: 1000;
+  padding: 16px 40px 16px 20px;
+}
+
+/* Search Bar */
+.search-bar {
+  position: sticky;
+  margin-top: 60px;
+  width: 90%;
+  height: 24px;
+  background: var(--background);
+  display: flex;
+  align-items: center;
+  border-radius: 50vw;
+  padding: 10px 10px;
+  font-family: var(--content-font);
+}
+
+.search-bar input {
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 24px 20px;
+  font-size: 12px;
+  color: #F8F8F8;
+  font-family: var(--content-font);
+}
+
+.search-bar button {
+  background-color: var(--text-muted);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 50vh;
+  height: 30px;
+  width: 60px;
+  padding: 3px 3px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.search-bar button:hover {
+  background-color: #1a1a1a;
+  transform: scale(1.02);
+}
+
+/* Sidebar Scrollable Content */
+.exercisebar-content {
+  position: relative;
+  flex: 1;
+  padding: 16px 0 16px 0;
+  direction: ltr;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.exercise-list {
+
+  background-color:var(--color-secondary);
+  display: flex;
+  gap: 30px;
+}
+
+/* Exercise Card */
+.exercise-card {
+  width: 95%;
+  height: 80px;
+  padding: 16px;
+  margin: 0 0 20px 0;
+  background: var(--background);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+  cursor: grab;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s ease;
+}
+
+.exercise-card:hover {
+  transform: scale(1.01);
+}
+
+.exercise-card.exercise-card-full {
+  width: 95%;
+}
+
+.exercise-card:active {
+  cursor: grabbing;
+  transform: scale(1.01);
+}
+
+.exercise-card-drag img {
+  width: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.exercise-card > img {
+  width: 90px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.exercise-card-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.exercise-card-description h1 {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  margin: 0;
+  color: var(--text-dark, #282828);
+}
+
+.exercise-card-description p {
+  font-family: var(--content-font, sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0;
+  color: var(--text-muted, #666);
+}
+
+.hidden {
+  display: none;
+}
+
+.exercise-card.show-special .special-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.exercise-card .special-info .reps {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  gap: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.exercise-card .special-info .reps input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 12px;
+  width: 40px;
+  text-align: center;
+  color: #333;
+}
+
+.exercise-card.show-special .data {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Right Nav Button */
+.exercisebar-button {
+  position: relative;
+  font-size: 14px;
+  margin-right: 16px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  color: var(--text-dark);
+  cursor: pointer;
+  z-index: 1;
+  transition: color 0.2s;
+  justify-content: flex-end;
+}
+
+/* Botão "+ Novo Treino" abaixo da lista */
+.add-workout {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.add-workout button {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.add-workout button:hover {
+  background-color: #1a1a1a;
+  transform: scale(1.02);
+}
+
+.add-workout button:active {
+  transform: scale(0.98);
+}
+
+/* Lista de Treinos Salvos */
+#lista-treinos {
+  overflow-y: auto;
+  margin: 32px 0px 0 32px;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: var(--background);
+}
+
+.treino-card {
+  border: 1px solid var(--light-grey);
+  border-radius: 12px;
+  padding: 16px;
+  background: white;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+.treino-card h3 {
+  font-family:var(--content-font);
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: var(--text-dark);
+}
+
+.treino-card p {
+  font-family:var(--content-font);
+  margin: 0 0 12px 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.treino-card button {
+  font-weight: 500;
+  font-family:var(--content-font);
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.treino-card button:hover {
+  background-color: #1a1a1a;
+  transform: scale(1.03);
+}
+
+
+.workout-title-container {
+  width: 100%;
+  padding: 10px 0 20px;
+  display: flex;
+  justify-content: left;
+}
+
+#workout-title {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px 20px;
+  font-family: var(--content-font);
+  font-size: 14px;
+  border-radius: 50vw;
+  border: 1px solid var(--light-grey);
+  background-color: #fff;
+  color: var(--text-dark);
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+#workout-title:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+
+/* Aplica a todas as barras de rolagem */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Fundo da barra (track) */
+::-webkit-scrollbar-track {
+  background: var(--color-primary); /* ou #ebedef */
+  border-radius: 10px;
+}
+
+/* Parte rolável (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: var(--text-muted); /* #b1b1b1 */
+  border-radius: 10px;
+  border: 2px solid transparent; /* espaço entre a borda e o track */
+  background-clip: content-box;
+}
+
+/* Hover no thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}

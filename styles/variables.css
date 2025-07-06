@@ -1,0 +1,11 @@
+:root {
+  --background: #F8F8F8;
+  --exercisebar-width: 20vw;
+  --exercisebar-min: 80px;
+  --color-primary: #ebedef;
+  --color-secondary: #282828;
+  --light-grey: #f2f2f2;
+  --text-muted: #b1b1b1;
+  --text-dark: #282828;
+  --content-font: "Lato", sans-serif;
+}

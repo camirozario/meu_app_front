@@ -79,7 +79,7 @@ docker compose up --build
 A API está estruturada de forma a conectar-se com uma API externa. Como indicado na imagem abaixo
 <img width="1017" height="508" alt="Screenshot 2025-09-28 232610" src="https://github.com/user-attachments/assets/3e758796-d41a-4c68-aee6-1dc71605fd7b" />
 
-A API principal pode ser bai em: https://github.com/camirozario/meu_app_api
+A API principal pode ser baixada em: https://github.com/camirozario/meu_app_api  
 API Externa Utilizada: https://v1.exercisedb.dev/
 
 ---

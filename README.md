@@ -30,8 +30,8 @@ Frontend estático (HTML, CSS e JS puro) servido em um container Docker utilizan
 
 ## 📦 Estrutura do Projeto
 
-my_frontend/
-│
+my_frontend/  
+│  
 ├── index.html          # Página principal\
 ├── css/                # Arquivos de estilo\
 ├── js/                 # Scripts JavaScript\

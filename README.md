@@ -32,25 +32,31 @@ Frontend estático (HTML, CSS e JS puro) servido em um container Docker utilizan
 
 my_frontend/
 │
-├── index.html          # Página principal
-├── css/                # Arquivos de estilo
-├── js/                 # Scripts JavaScript
-├── images/             # Imagens estáticas
-├── Dockerfile          # Arquivo Docker para build
-└── nginx.conf          # Configuração do Nginx
+├── index.html          # Página principal\
+├── css/                # Arquivos de estilo\
+├── js/                 # Scripts JavaScript\
+├── images/             # Imagens estáticas\
+├── Dockerfile          # Arquivo Docker para build\
+└── nginx.conf          # Configuração do Nginx\
 
 ---
 
 ## 🚀 Como rodar localmente com Docker
 
 1. Entre na pasta do frontend:
-   cd my_frontend
+```
+   cd my_app_front
+```
 
 2. Construa a imagem Docker:
+```
    docker build -t meu_app_front:static .
+```
 
 3. Suba o container:
+```
    docker run --rm -p 3000:80 meu_app_front:static
+```
 
 O site estará disponível em:
 👉 http://localhost:3000

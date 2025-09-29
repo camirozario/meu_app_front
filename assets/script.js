@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchForm = document.querySelector(".search-bar");
   const searchInput = document.querySelector(".search-bar input");
 
-  // will live under the list
+  // pagination container for sidebar list
   let paginationDiv = document.getElementById("sidebar-pagination");
   if (!paginationDiv) {
     paginationDiv = document.createElement("div");
@@ -20,11 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
     paginationDiv.style.gap = "6px";
     paginationDiv.style.justifyContent = "center";
     paginationDiv.style.padding = "10px 0 6px";
-    // insert after the list
     rightBox.parentElement.appendChild(paginationDiv);
   }
 
-  // ================== LIMITS & HELPERS (NEW) ==================
+  // ================== LIMITS & HELPERS ==================
   const LIMITS = {
     titulo: 100,
     musculo: 50,
@@ -40,13 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // state
   let selected = null;
   let lastQuery = { q: "", page: 1, per_page: 24, limit_ext: 200 };
-  let lastWasFallback = false;
 
-  // helpers
   function resolveThumb(url) {
     if (!url) return "assets/img/main/placeholder.png";
-    if (/^https?:\/\//i.test(url)) return url;               // external absolute
-    return `${API_BASE}/${String(url).replace(/^\/+/, "")}`; // local static path
+    if (/^https?:\/\//i.test(url)) return url;
+    return `${API_BASE}/${String(url).replace(/^\/+/, "")}`;
   }
 
   async function fetchJSON(url, opts = {}) {
@@ -59,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return res.json();
   }
 
-  // helper to POST /exercicio with error carrying status
   async function postExercicio(body) {
     const res = await fetch(`${API_BASE}/exercicio`, {
       method: "POST",
@@ -81,27 +77,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const titulo = clampText(x.name || x.titulo || "(sem título)", LIMITS.titulo);
     const musc = (Array.isArray(x.targetMuscles) && x.targetMuscles[0]) ||
                  (Array.isArray(x.bodyParts) && x.bodyParts[0]) || "";
-    const descricaoRaw = Array.isArray(x.instructions)
-      ? x.instructions.join(" ")
-      : (x.descricao || "");
+    const descricaoRaw = Array.isArray(x.instructions) ? x.instructions.join(" ") : (x.descricao || "");
     const descricao = clampText(descricaoRaw, LIMITS.descricao);
     const thumbRaw = x.imageUrl || x.gifUrl || x.thumbnail || "";
     const thumbnail = clampText(thumbRaw, LIMITS.thumbnail);
 
-    return {
-      id: null,
-      titulo,
-      musculo: clampText(musc, LIMITS.musculo),
-      descricao,
-      thumbnail,
-      source: "external"
-    };
+    return { id: null, titulo, musculo: clampText(musc, LIMITS.musculo), descricao, thumbnail, source: "external" };
   }
 
   // ================== LOAD (merged) WITH PAGINATION ==================
   async function fetchExercises({ q = "", page = 1, per_page = 24, limit_ext = 200 } = {}) {
     lastQuery = { q, page, per_page, limit_ext };
-    lastWasFallback = false;
 
     const params = new URLSearchParams();
     if (q) params.set("q", q);
@@ -109,47 +95,36 @@ document.addEventListener("DOMContentLoaded", () => {
     params.set("per_page", per_page);
     params.set("limit_ext", limit_ext);
 
-    // 1) Try unified endpoint with server-side pagination
+    // 1) Prefer your unified endpoint
     try {
       const todosUrl = `${API_BASE}/exercicios/todos?${params.toString()}`;
       const data = await fetchJSON(todosUrl);
-
-      const items = Array.isArray(data.items)
-        ? data.items
-        : Array.isArray(data.exercicios)
-        ? data.exercicios
-        : [];
-
+      const items = Array.isArray(data.items) ? data.items
+                 : Array.isArray(data.exercicios) ? data.exercicios
+                 : [];
       renderExercises(items);
 
       const currentPage = Number(data.page ?? page);
       const totalPages =
-        Number(data.pages ??
-          Math.max(1, Math.ceil(Number(data.total ?? items.length) / per_page)));
-
+        Number(data.pages ?? Math.max(1, Math.ceil(Number(data.total ?? items.length) / per_page)));
       renderPagination(currentPage, totalPages);
       return;
     } catch (e) {
-      // proceed to fallback
+      // fallback below
     }
 
-    // 2) Fallback: fetch locals + externals, merge + paginate client-side
-    lastWasFallback = true;
+    // 2) Fallback: local + external
     try {
       const localsUrl = `${API_BASE}/exercicios`;
       const defaultUrl = `${API_BASE}/exercicios/default?limit=${encodeURIComponent(limit_ext)}${q ? `&q=${encodeURIComponent(q)}` : ""}`;
-
       const [localData, externalData] = await Promise.all([
         fetchJSON(localsUrl).catch(() => ({})),
         fetchJSON(defaultUrl).catch(() => ({}))
       ]);
 
-      const localItems = Array.isArray(localData.items)
-        ? localData.items
-        : Array.isArray(localData.exercicios)
-        ? localData.exercicios
-        : [];
-
+      const localItems = Array.isArray(localData.items) ? localData.items
+                        : Array.isArray(localData.exercicios) ? localData.exercicios
+                        : [];
       const rawExternal = Array.isArray(externalData.items) ? externalData.items : [];
       const externalItems = rawExternal.map(mapExternalToUnified);
 
@@ -164,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       const merged = [...localItems, ...externalItems].filter(filterByQ);
-
       const totalPages = Math.max(1, Math.ceil(merged.length / per_page));
       const safePage = Math.min(Math.max(1, page), totalPages);
       const start = (safePage - 1) * per_page;
@@ -216,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div class="special-info hidden">
           <div class="reps"><input type="number" placeholder="sets" min="1" step="1"></div>x
-          <div class="reps"><input type="number" placeholder="reps" min="1" step="1"></div>
+          <div class="reps"><input type="number" placeholder="reps" min="1 step="1"></div>
           <div class="card-erase"><i class="fa-solid fa-trash"></i></div>
         </div>
       `;
@@ -291,6 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     if (!selected) return;
 
+    // If external, create a local copy first so it has an id
     if (selected.dataset.source === "external") {
       try {
         await ensurePersonalIdForCard(selected);
@@ -319,9 +294,8 @@ document.addEventListener("DOMContentLoaded", () => {
     selected = null;
   });
 
-  // UPDATED: trims fields to DB limits and handles 409 duplicate
   async function ensurePersonalIdForCard(card) {
-    if (card.dataset.source === "personal" && card.dataset.id) return; // already local
+    if (card.dataset.source === "personal" && card.dataset.id) return;
 
     let payload;
     try { payload = JSON.parse(decodeURIComponent(card.dataset.payload)); }
@@ -351,7 +325,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // mark as local
     card.dataset.source = "personal";
     card.dataset.id = String(created.id);
 
@@ -365,7 +338,6 @@ document.addEventListener("DOMContentLoaded", () => {
         : `${API_BASE}/${String(created.thumbnail).replace(/^\/+/, "")}`;
     }
 
-    // update payload on the card as local
     try {
       const updatedPayload = {
         ...payload,
@@ -377,7 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
         thumbnail: created.thumbnail ?? baseBody.thumbnail
       };
       card.dataset.payload = encodeURIComponent(JSON.stringify(updatedPayload));
-    } catch { /* non-fatal */ }
+    } catch {}
   }
 
   // ============== SEARCH (server-side q; prevent form reload) ==============
@@ -432,7 +404,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ============== TREINOS LIST (optional) ==============
+  // ============== TREINOS LIST (with DELETE) ==============
   async function fetchTreinos() {
     try {
       const data = await fetchJSON(`${API_BASE}/treinos`);
@@ -453,11 +425,30 @@ document.addEventListener("DOMContentLoaded", () => {
       card.innerHTML = `
         <h3>${treino.titulo}</h3>
         <p><strong>${treino.total_exercicios}</strong> exercícios</p>
-        <button class="carregar-treino">Carregar</button>
+        <div style="display:flex; gap:8px;">
+          <button class="carregar-treino">Carregar</button>
+          <button class="deletar-treino" style="background:#994848;color:#fff;">Excluir</button>
+        </div>
       `;
+
       card.querySelector(".carregar-treino").addEventListener("click", () => {
         carregarTreinoNoMainContainer(treino.id);
       });
+      card.querySelector(".deletar-treino").addEventListener("click", async () => {
+        if (!confirm(`Excluir o treino "${treino.titulo}"?`)) return;
+        try {
+          const res = await fetch(`${API_BASE}/treino?id=${treino.id}`, { method: "DELETE" });
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            throw new Error(err.mesage || "Erro ao excluir treino.");
+          }
+          fetchTreinos();
+        } catch (err) {
+          console.error(err);
+          alert(err.message || "Erro ao excluir treino.");
+        }
+      });
+
       lista.appendChild(card);
     });
   }

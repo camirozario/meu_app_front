@@ -4,23 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personal Trainer</title>
-
-  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- Your CSS -->
   <link rel="stylesheet" href="styles/variables.css" />
   <link rel="stylesheet" href="styles/main.css" />
   <link rel="stylesheet" href="styles/navbar.css" />
-  <!-- NEW: builder-specific (sidebar scroll, sticky footer, pagination, badges) -->
-  <link rel="stylesheet" href="styles/builder.css" />
-
   <style>
-    /* keep full-height app, page itself doesn't scroll */
-    html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-    .layout { display: flex; height: 100vh; width: 100vw; overflow: hidden; background-color: var(--background); }
+    /* keep your existing page-level overflow behavior */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* evita rolagem da página inteira */
+    }
+    .layout {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden; /* evita barra de rolagem duplicada */
+      background-color: var(--background);
+    }
   </style>
 </head>
 <body>
@@ -39,24 +43,23 @@
     </div>
   </div>
 
-  <!-- MAIN CONTENT (drop target) -->
+  <!-- SAVED TREINOS LIST (left column area you had) -->
   <div id="lista-treinos"></div>
   <div class="add-workout"></div>
 
+  <!-- MAIN (builder) -->
   <div id="main">
-    <h1>Crie seu Workout</h1>
+    <h1>Crie seu Workout</h1>       
     <div class="workout-title-container">
       <input type="text" id="workout-title" placeholder="Título do treino" />
     </div>
-
     <div id="main-container">
       <div id="add-text"><i class="fa-solid fa-plus"></i><span>&ensp;&ensp;Adicione os exercícios aqui</span></div>
     </div>
-
     <div class="save-workout"><button>Save</button></div>
   </div>
   
-  <!-- RIGHT SIDEBAR (source list) -->
+  <!-- RIGHT SIDEBAR (catalog) -->
   <div class="exercisebar">
     <!-- SEARCH BOX -->
     <div class="search-box">
@@ -66,23 +69,18 @@
       </form>
     </div>
 
-    <!-- SCROLLABLE LIST -->
-    <div id="exercise-scroll">
-      <div id="exercise-list">
-        <!-- JS renders cards here (personal + external) -->
-      </div>
+    <div id="exercise-list">
+      <!-- cards are injected via JS -->
     </div>
 
-    <!-- STICKY FOOTER: pagination + add -->
-    <div class="sidebar-footer">
-      <div id="sidebar-pagination"></div>
-      <button id="sidebar-add">+ Novo</button>
-    </div>
+    <!-- pagination under the list (injected by JS) -->
+    <!-- sticky "+ add" button already in your CSS if you want to keep it -->
+    <div class="add-workout"><button> + add </button></div>
   </div>
 
 </div> <!-- End of layout -->
 
 <!-- JS -->
-<script src="assets/script.js?v=12"></script>
+<script src="assets/script.js?v=18"></script>
 </body>
 </html>

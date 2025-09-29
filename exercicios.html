@@ -1,43 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Personal Trainer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal Trainer — Exercícios</title>
 
-  <!-- Fonts e Ícones -->
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="styles/variables.css" />
-  <link rel="stylesheet" href="styles/exercise-list.css" />
-  <link rel="stylesheet" href="styles/navbar.css" />
-
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-    }
-
-    .layout {
-      display: flex;
-      width: 100vw;
-      height: 100vh;
-      overflow-y: auto;
-
-    }
-  </style>
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="styles/variables.css"/>
+  <link rel="stylesheet" href="styles/navbar.css"/>
+  <link rel="stylesheet" href="styles/exercise-list.css"/>
 </head>
 <body>
 
-  <div class="layout">  
-
+  <div class="layout">
     <!-- LEFT SIDEBAR -->
     <div id="nav-bar">
       <div id="nav-header">
-        <a id="nav-title" href="#"><img src="assets/img/logo/logo.png" /></a>
+        <a id="nav-title" href="#"><img src="assets/img/logo/logo.png" alt="Logo"/></a>
       </div>
       <div id="nav-content">
         <div class="nav-button"><i class="fas fa-pen"></i><span><a href="index.html">Builder</a></span></div>
@@ -52,79 +36,54 @@
 
       <!-- SEARCH BOX -->
       <div class="exercise-search-box">
-        <form action="" class="exercise-search-bar">
-          <input type="text" placeholder="buscar exercício" name="q" />
-          <button type="submit"><img src="assets/img/main/search-icon.png" height="10px" /></button>
+        <form action="javascript:void(0)" class="exercise-search-bar">
+          <input type="text" placeholder="buscar exercício" name="q"/>
+          <button type="submit" aria-label="Buscar">
+            <img src="assets/img/main/search-icon.png" height="10" alt="Buscar"/>
+          </button>
         </form>
       </div>
 
-      <!-- EXERCISE LIST -->
-      <div id="exercise-list">
+      <!-- SCROLLABLE GRID AREA -->
+      <div id="exercise-scroll">
+        <div id="exercise-list"><!-- cards via JS --></div>
 
-        <!-- CARD 1 -->
-        <div class="exercise-card" draggable="true">
-          <img src="https://image.tuasaude.com/media/article/le/xw/supino_63635.jpg" />
-          <div class="exercise-card-description">        
-            <h1>Exercise 1</h1>
-            <p>Foco: Perna</p>
-            <p>Mais uma descrição...</p>
-          </div>
-          <div class="card-edit">
-            <div class="card-edit-edit"><i class="fa-solid fa-pen"></i></div>
-            <div class="card-edit-delete"><i class="fa-solid fa-trash"></i></div>
-          </div>
-        </div>
 
-        <!-- CARD 2 -->
-        <div class="exercise-card" draggable="true">
-          <img src="https://image.tuasaude.com/media/article/le/xw/supino_63635.jpg" />
-          <div class="exercise-card-description">        
-            <h1>Exercise 2</h1>
-            <p>Foco: Perna</p>
-            <p>Mais uma descrição...</p>
-          </div>
-          <div class="card-edit">
-            <div class="card-edit-edit"><i class="fa-solid fa-pen"></i></div>
-            <div class="card-edit-delete"><i class="fa-solid fa-trash"></i></div>
-          </div>
-        </div>
 
-      </div> <!-- end of exercise-list -->
+      <!-- STICKY BOTTOM BAR: pagination + button -->
+    <div class="sticky-footer">
+      <div id="pagination"></div>
+        <button id="open-upload-popup" class="upload-btn">
+        <i class="fa-solid fa-plus"></i> Novo
+        </button>
+    </div>
 
-      <!-- BOTÃO DE NOVO -->
-      <div class="add-workout">
-        <button id="open-upload-popup" class="upload-btn"><i class="fa-solid fa-plus"></i> Novo</button>
-      </div>
 
-    </div> <!-- end of main-exercicios -->
+    </div> <!-- end main-exercicios -->
+  </div> <!-- end layout -->
 
-  </div> <!-- end of layout -->
+  <!-- POPUP: Criar / Editar Exercício Pessoal -->
+  <div id="upload-popup" class="popup">
+    <div class="popup-header">
+      <h2>Criar Novo Exercício</h2>
+      <button id="close-upload-popup" class="close-btn" aria-label="Fechar">&times;</button>
+    </div>
 
-  <!---------------- POPUP ---------------------------->
-<div id="upload-popup" class="popup">
-  <div class="popup-header">
-    <h2>Criar Novo Exercício</h2>
-    <button id="close-upload-popup" class="close-btn">&times;</button>
+    <form id="upload-form">
+      <!-- Upload de imagem -->
+      <input type="file" id="image-input" accept="image/*"/>
+      <img id="thumbnail" src="" alt="Prévia da imagem"/>
+
+      <!-- Campos -->
+      <p><input type="text" id="exercise-name" name="exercise" placeholder="Exercício" required/></p>
+      <p><input type="text" id="muscles" name="muscles" placeholder="Músculos" required/></p>
+      <p><textarea id="description" name="description" placeholder="Descrição" required rows="3"></textarea></p>
+
+      <button type="submit" class="send-btn">Criar</button>
+    </form>
   </div>
-  <form id="upload-form">
-    <input type="file" id="image-input" accept="image/*" />
-    
-    <!-- Thumbnail da imagem -->
-    <img id="thumbnail" src="" alt="Prévia da imagem" />
-    
-    <!-- Campos de texto -->
-    <p><input type="text" id="exercise-name" name="exercise" placeholder="Exercício" required /></p>
-    
-    <p><input type="text" id="muscles" name="muscles" placeholder="Músculos" required /></p>
-    
-    <p><textarea id="description" name="description" placeholder="Descrição" required rows="3"></textarea></p>
-    
-    <button type="submit" class="send-btn">Criar</button>
-  </form>
-</div>
 
   <!-- JS -->
   <script src="assets/exercise.js"></script>
-
 </body>
 </html>

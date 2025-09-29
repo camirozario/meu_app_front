@@ -1,35 +1,77 @@
 # 🏋️‍♀️ Personal Trainer Workout Builder
 
-Esta é uma aplicação web full stack para montagem de treinos personalizados. O usuário pode buscar exercícios, arrastar e soltar na área de treino, configurar séries e repetições, salvar no banco de dados e depois carregar novamente.
+Esta é uma aplicação web full stack para montagem de treinos personalizados. O usuário pode buscar exercícios, arrastar e soltar na área de treino, configurar séries e repetições, salvar no banco de dados e depois carregar novamente.# 🌐 Workout Builder Frontend
+
+Frontend estático (HTML, CSS e JS puro) servido em um container Docker utilizando Nginx.
+
+---
 
 ## ✨ Funcionalidades
 
-- 🔎 **Busca de exercícios** por título
-- 🧱 **Interface drag & drop** para montar treinos
-- 📝 **Definição de séries e repetições**
-- 💾 **Persistência no banco de dados (SQLite) via API Flask**
-- 📦 **Upload de imagens e descrição dos exercícios**
-- 📂 **Listagem e carregamento de treinos anteriores**
-- 💡 **Design responsivo e visual moderno**
+- 🔎 Busca de exercícios por título
+- 🧱 Interface drag & drop para montar treinos
+- 📝 Definição de séries e repetições
+- 💾 Persistência no banco de dados (SQLite) via API Flask
+- 📦 Upload de imagens e descrição dos exercícios
+- 📂 Listagem e carregamento de treinos anteriores
+- 💡 Design responsivo
+
+---
 
 ## 🛠 Tecnologias
 
-### Frontend
 - HTML5, CSS3 (custom properties) e JavaScript puro
 - Estilização com Flexbox e variáveis CSS
 - Layout com sidebar fixa e responsiva
 - Efeitos visuais com hover, transições e responsividade
+- Servido por Nginx em container Docker
 
-### Backend
-- Python 3 com Flask
-- Flask-OpenAPI3 + Pydantic para validação
-- SQLAlchemy + SQLite para persistência
-- Upload de imagens e APIs REST
+---
 
-## 🔧 Como rodar localmente
+## 📦 Estrutura do Projeto
 
-1. Clone o repositório:
+my_frontend/
+│
+├── index.html          # Página principal
+├── css/                # Arquivos de estilo
+├── js/                 # Scripts JavaScript
+├── images/             # Imagens estáticas
+├── Dockerfile          # Arquivo Docker para build
+└── nginx.conf          # Configuração do Nginx
 
-```bash
-git clone https://github.com/seuusuario/workout-builder.git
-cd workout-builder
+---
+
+## 🚀 Como rodar localmente com Docker
+
+1. Entre na pasta do frontend:
+   cd my_frontend
+
+2. Construa a imagem Docker:
+   docker build -t meu_app_front:static .
+
+3. Suba o container:
+   docker run --rm -p 3000:80 meu_app_front:static
+
+O site estará disponível em:
+👉 http://localhost:3000
+
+---
+
+## 🔗 Integração com a API
+
+O frontend consome dados da API em:
+👉 http://localhost:5000
+
+Certifique-se de que o container da API esteja rodando antes de acessar o frontend.
+
+Exemplo para subir a API:
+cd meu_app_api
+docker compose up --build
+
+---
+
+## 🐳 Observações
+
+- O Dockerfile copia todo o conteúdo estático para dentro do Nginx no caminho /usr/share/nginx/html
+- O nginx.conf garante que o site funcione mesmo em rotas "deep links" (Single Page Application friendly)
+- Caso não precise de SPA, pode remover o nginx.conf e usar a configuração padrão do Nginx

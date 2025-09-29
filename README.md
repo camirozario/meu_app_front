@@ -1,4 +1,4 @@
-# 🏋️‍♀️ Personal Trainer Workout Builder
+# 🏋️‍♀️ Power Plan - Workout Builder
 
 Esta é uma aplicação web full stack para montagem de treinos personalizados. O usuário pode buscar exercícios, arrastar e soltar na área de treino, configurar séries e repetições, salvar no banco de dados e depois carregar novamente.# 🌐 Workout Builder Frontend
 
@@ -71,12 +71,16 @@ O frontend consome dados da API em:
 Certifique-se de que o container da API esteja rodando antes de acessar o frontend.
 
 Exemplo para subir a API:
+```
 cd meu_app_api
 docker compose up --build
+```
 
 A API está estruturada de forma a conectar-se com uma API externa. Como indicado na imagem abaixo
 <img width="1017" height="508" alt="Screenshot 2025-09-28 232610" src="https://github.com/user-attachments/assets/3e758796-d41a-4c68-aee6-1dc71605fd7b" />
 
+A API principal pode ser bai em: https://github.com/camirozario/meu_app_api
+API Externa Utilizada: https://v1.exercisedb.dev/
 
 ---
 

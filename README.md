@@ -75,7 +75,8 @@ cd meu_app_api
 docker compose up --build
 
 A API está estruturada de forma a conectar-se com uma API externa. Como indicado na imagem abaixo
-![alt text](../estrutura.png)
+![estrutrua](../estrutura.png)
+
 ---
 
 ## 🐳 Observações
